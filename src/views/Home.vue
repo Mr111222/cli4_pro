@@ -8,6 +8,8 @@
     <router-link to="/project">project</router-link>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <router-link to="/tree">Tree</router-link>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <router-link to="/form">form</router-link>
   </div>
 </template>
 
