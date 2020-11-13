@@ -13,6 +13,17 @@ Vue.prototype.localData = localData;
 Vue.prototype.sessionData = sessionData;
 Vue.config.productionTip = false;
 
+
+import 'vx-easyui/dist/themes/default/easyui.css';
+import 'vx-easyui/dist/themes/icon.css';
+import 'vx-easyui/dist/themes/vue.css';
+import EasyUI from 'vx-easyui';
+Vue.use(EasyUI);
+
+
+import ZkTable from "vue-table-with-tree-grid";
+Vue.use(ZkTable);
+
 new Vue({
   router,
   store,

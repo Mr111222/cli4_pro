@@ -62,6 +62,7 @@
       <el-button @click="getWeather()">ajax1</el-button>
 
       <el-button @click="alertFn()">ALERT</el-button>
+      <el-button @click="switchFn(10)">switchFn</el-button>
     </div>
   </div>
 </template>
@@ -90,6 +91,15 @@ export default {
     };
   },
   methods: {
+    switchFn(num) {
+      switch (num) {
+        case num < 10:
+          alert(num);
+          break;
+        default:
+          alert("111111");
+      }
+    },
     alertFn() {
       this.$store.commit("login/ALERT", "我说测试数据");
     },

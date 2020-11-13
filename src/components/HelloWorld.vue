@@ -9,95 +9,15 @@
       >.
     </p>
     <h3>Installed CLI Plugins</h3>
+    <el-button type="danger" @click="closeFn">关闭</el-button>
     <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-          >babel</a
-        >
+      <li v-for="item in list" :key="item.id" @click="addList(item.path)">
+        <!-- http://localhost:8080/home -->
+        <a target="_blank" :href="`http://localhost:8080${item.path}`">{{
+          item.name
+        }}</a>
       </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          rel="noopener"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-vuex"
-          target="_blank"
-          rel="noopener"
-          >vuex</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          rel="noopener"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener"
-          >Forum</a
-        >
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener"
-          >Community Chat</a
-        >
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener"
-          >Twitter</a
-        >
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank" rel="noopener"
-          >vue-router</a
-        >
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          rel="noopener"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener"
-          >vue-loader</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-          rel="noopener"
-          >awesome-vue</a
-        >
-      </li>
+      <!-- <li v-for="item in list" :key="item.id"><router-link :to="item.path">{{item.name}}</router-link></li> -->
     </ul>
   </div>
 </template>
@@ -107,6 +27,39 @@ export default {
   name: "HelloWorld",
   props: {
     msg: String
+  },
+  data() {
+    return {
+      list: [
+        { id: "1", name: "测试1", path: "/test1" },
+        { id: "2", name: "测试2", path: "/test2" },
+        { id: "3", name: "测试3", path: "/test3" },
+        { id: "5", name: "测试4", path: "/test4" }
+      ],
+      win_Array: [],
+      win_num: 0
+    };
+  },
+  methods: {
+    closeFn() {
+      for (let i = 0; i < this.win_Array.length; i++) {
+        console.log(this.win_Array[i]);
+        this.win_Array[i].close();
+        // this.win_Array.splice(i, 1)
+      }
+
+      console.log(this.win_Array);
+    },
+    addList(path) {
+      this.openNew(path);
+    },
+    openNew(path) {
+      this.win_Array[this.win_num] = window.open(
+        `http://localhost:8080${path}`
+      );
+      this.win_num += 1;
+      console.log(this.win_Array);
+    }
   }
 };
 </script>
