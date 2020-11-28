@@ -61,7 +61,6 @@
     <div class="right">
       <el-button @click="getWeather()">ajax1</el-button>
       <el-button @click="alertFn()">ALERT</el-button>
-      <<<<<<< HEAD
       <el-table :data="tableData" style="width: 100%">
         <el-table-column prop="date" label="日期" width="180">
         </el-table-column>
