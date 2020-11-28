@@ -59,7 +59,8 @@ export default {
       try {
         this.$message({
           message: `${this.$t("login.success")}`,
-          type: "success"
+          type: "success",
+          duration: 800
         });
         sessionStorage.setItem("token", setToken());
         this.$router.push("/home");

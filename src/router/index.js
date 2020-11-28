@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-11-27 22:10:17
- * @LastEditors: your name
+ * @LastEditTime: 2020-11-28 21:20:16
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\router\index.js
  */
@@ -41,6 +41,22 @@ const routes = [
     }
   },
   {
+    path: "/tree",
+    name: "Tree",
+    component: () => import(/* webpackChunkName: "tree" */ "../views/tree.vue"),
+    meta: {
+      title: "Tree"
+    }
+  },
+  {
+    path: "/form",
+    name: "Form",
+    component: () => import(/* webpackChunkName: "form" */ "../views/form.vue"),
+    meta: {
+      title: "Form"
+    }
+  },
+  {
     path: "/element",
     name: "Ele",
     component: () =>
@@ -56,6 +72,51 @@ const routes = [
       import(/* webpackChunkName: "element" */ "../views/table.vue"),
     meta: {
       title: "Table"
+    }
+  },
+  {
+    path: "/project",
+    name: "Project",
+    component: () =>
+      import(/* webpackChunkName: "project" */ "../views/project.vue"),
+    meta: {
+      title: "Element"
+    }
+  },
+  {
+    path: "/test1",
+    name: "T1",
+    component: () =>
+      import(/* webpackChunkName: "test1" */ "../views/test/test1.vue"),
+    meta: {
+      title: "test1"
+    }
+  },
+  {
+    path: "/test2",
+    name: "T2",
+    component: () =>
+      import(/* webpackChunkName: "test2" */ "../views/test/test2.vue"),
+    meta: {
+      title: "test2"
+    }
+  },
+  {
+    path: "/test3",
+    name: "T3",
+    component: () =>
+      import(/* webpackChunkName: "test3" */ "../views/test/test3.vue"),
+    meta: {
+      title: "test3"
+    }
+  },
+  {
+    path: "/test4",
+    name: "T4",
+    component: () =>
+      import(/* webpackChunkName: "test4" */ "../views/test/test4.vue"),
+    meta: {
+      title: "test4"
     }
   }
 ];

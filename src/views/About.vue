@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-11-27 21:59:00
+ * @LastEditTime: 2020-11-28 21:21:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edite
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -23,6 +23,13 @@
     </div>
     <div v-html="htmls"></div>
     <el-button @click="getVal">获取</el-button>
+    <div class="about">
+      <h1>This is an about page</h1>
+      <el-button @click="setArr">setArr</el-button>
+      <el-button @click="getArr">getArr</el-button>
+      <el-button @click="delArr">delArr</el-button>
+      <el-button type="primary" @click="ajajxGet">primary</el-button>
+    </div>
   </div>
 </template>
 

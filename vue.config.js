@@ -25,10 +25,13 @@ module.exports = {
     }
   },
   configureWebpack: config => {
-    // console.log(config);
-    // const plugins = [];
-    // plugins.push(new HashedModuleIdsPlugin());
-    // return { plugins };
+    config.resolve = {
+      extensions: [".js", ".vue", ".json", ".css"],
+      alias: {
+        vue$: "vue/dist/vue.esm.js",
+        "@": resolve("src")
+      }
+    };
     config.plugins.push(new HashedModuleIdsPlugin());
   },
   chainWebpack: config => {
@@ -39,11 +42,11 @@ module.exports = {
     if (isProduction) {
       // 图片压缩
       config.module
-        .rule('images')
+        .rule("images")
         .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-        .use('image-webpack-loader')
-        .loader('image-webpack-loader')
-        .options({ bypassOnDebug: true })
+        .use("image-webpack-loader")
+        .loader("image-webpack-loader")
+        .options({ bypassOnDebug: true });
       // 删除预加载
       config.plugins.delete("preload");
       config.plugins.delete("prefetch");

@@ -26,7 +26,7 @@ const http = axios.create({
 });
 
 /**
- * 请求拦截
+ * 请求拦截   621430164879271
  */
 http.interceptors.request.use(
   function(config) {
