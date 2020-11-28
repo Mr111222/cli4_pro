@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-11 20:57:26
+ * @LastEditTime: 2020-11-27 22:10:17
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \cli4_pro\src\router\index.js
+ */
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "@/views/login";
@@ -39,6 +47,15 @@ const routes = [
       import(/* webpackChunkName: "element" */ "../views/element.vue"),
     meta: {
       title: "Element"
+    }
+  },
+  {
+    path: "/table",
+    name: "Tab",
+    component: () =>
+      import(/* webpackChunkName: "element" */ "../views/table.vue"),
+    meta: {
+      title: "Table"
     }
   }
 ];

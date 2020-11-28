@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-11 20:57:26
+ * @LastEditTime: 2020-11-27 22:15:31
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \cli4_pro\src\main.js
+ */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -12,6 +20,12 @@ Vue.prototype.$http = http;
 Vue.prototype.localData = localData;
 Vue.prototype.sessionData = sessionData;
 Vue.config.productionTip = false;
+
+import "xe-utils";
+import VXETable from "vxe-table";
+import "vxe-table/lib/style.css";
+
+Vue.use(VXETable);
 
 new Vue({
   router,

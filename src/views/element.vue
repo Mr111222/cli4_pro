@@ -60,8 +60,30 @@
     </div>
     <div class="right">
       <el-button @click="getWeather()">ajax1</el-button>
-
       <el-button @click="alertFn()">ALERT</el-button>
+       <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        prop="date"
+        label="日期"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="address"
+        label="地址">
+        <template slot-scope="scope">
+          <el-tooltip :disabled="scope.row.address ? false : true" :content="scope.row.address" placemment="left-start" effect="light">
+            <el-input v-model="scope.row.address"></el-input>    
+          </el-tooltip>  
+        </template>
+      </el-table-column>
+    </el-table>
     </div>
   </div>
 </template>
@@ -86,10 +108,30 @@ export default {
   data() {
     return {
       msg: 12,
-      codeImg: ""
+      codeImg: "",
+      tableData: [{
+            date: '2016-05-02',
+            name: '王小虎',
+            address: null
+          }, {
+            date: '2016-05-04',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1517 弄'
+          }, {
+            date: '2016-05-01',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1519 弄'
+          }, {
+            date: '2016-05-03',
+            name: '王小虎',
+            address: '上海市普陀区金沙江路 1516 弄'
+          }]
     };
   },
   methods: {
+    getLength (val) {
+      return val ? val : true 
+    },
     alertFn() {
       this.$store.commit("login/ALERT", "我说测试数据");
     },
