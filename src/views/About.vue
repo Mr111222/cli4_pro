@@ -1,7 +1,15 @@
 <!--
  * @Author: your name
+ * @Date: 2020-11-28 21:14:29
+ * @LastEditTime: 2020-12-13 15:24:21
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \cli4_pro\src\views\About.vue
+-->
+<!--
+ * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-11-28 21:21:15
+ * @LastEditTime: 2020-12-13 14:24:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edite
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -21,19 +29,15 @@
       >
       </quill-editor>
     </div>
-    <div v-html="htmls"></div>
+    {{ logmsg }}
     <el-button @click="getVal">获取</el-button>
-    <div class="about">
-      <h1>This is an about page</h1>
-      <el-button @click="setArr">setArr</el-button>
-      <el-button @click="getArr">getArr</el-button>
-      <el-button @click="delArr">delArr</el-button>
-      <el-button type="primary" @click="ajajxGet">primary</el-button>
-    </div>
+    <el-input v-model="msg"></el-input>
+    <el-button @click="changeLogMessage">changeLogMessage</el-button>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
@@ -44,12 +48,24 @@ export default {
   },
   data() {
     return {
-      content: `欢迎使用`,
+      msg: "",
+      content: this.$store.state.txt,
       htmls: "",
-      editorOption: {}
+      editorOption: {
+        clipboard: {
+          matchVisual: false
+        }
+      }
     };
   },
   methods: {
+    removeHTMLTag(description) {
+      description = description.replace(/(\n)/g, "");
+      description = description.replace(/(\t)/g, "");
+      description = description.replace(/(\r)/g, "");
+      description = description.replace(/\s*/g, "");
+      return description;
+    },
     onEditorReady(editor) {
       // 准备编辑器
     },
@@ -59,9 +75,13 @@ export default {
     getVal() {
       console.log(this.content, "content");
       this.htmls = this.content;
+    },
+    changeLogMessage() {
+      this.$store.commit("login/MESSAGE", this.msg);
     }
   },
   computed: {
+    ...mapGetters(["login", "logmsg"]),
     editor() {
       return this.$refs.myQuillEditor.quill;
     }
