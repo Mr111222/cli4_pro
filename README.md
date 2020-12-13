@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-04 22:46:42
- * @LastEditTime: 2020-11-27 22:14:31
+ * @LastEditTime: 2020-12-13 18:18:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project-three\README.md
@@ -48,3 +48,5 @@ https://blog.csdn.net/weixin_43650973/article/details/99435766
 ### vue html 模板
 
 https://blog.csdn.net/lanseguhui/article/details/103520190
+
+### vuex 多模块化
