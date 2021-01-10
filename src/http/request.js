@@ -132,7 +132,7 @@ http.adornData = (data = {}, openDefultdata = true, contentType = "json") => {
 http.requstPostApi = (url, params) => {
   return new Promise((resolve, reject) => {
     http
-      .post(http.adornUrl(url), qs.stringify(params))
+      .post(http.adornUrl(url), params)
       .then(res => {
         resolve(res.data);
       })
@@ -152,7 +152,7 @@ http.requstGetApi = (url, params) => {
     http
       .get(http.adornUrl(url), { params: params })
       .then(res => {
-        resolve(res.data.data);
+        resolve(res.data);
       })
       .catch(error => {
         reject(error);

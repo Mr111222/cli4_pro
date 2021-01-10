@@ -1,20 +1,11 @@
 <!--
  * @Author: your name
  * @Date: 2020-11-28 21:14:29
- * @LastEditTime: 2020-12-13 15:24:21
+ * @LastEditTime: 2020-12-13 18:52:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
 -->
-<!--
- * @Author: your name
- * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-12-13 14:24:44
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edite
- * @FilePath: \cli4_pro\src\views\About.vue
--->
-
 <template>
   <div>
     <div class="edit_container">
@@ -37,7 +28,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
 import { quillEditor } from "vue-quill-editor"; //调用编辑器
 import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";

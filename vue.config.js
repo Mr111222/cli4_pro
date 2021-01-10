@@ -15,11 +15,11 @@ module.exports = {
     hotOnly: false, // 热更新
     proxy: {
       "^/api": {
-        target: "http://wthrcdn.etouch.cn/weather_mini", // 重写路径
+        target: "http://localhost:9999/", // 重写路径
         ws: true, //开启WebSocket
         secure: false, // 如果是https接口，需要配置这个参数
-        changeOrigin: true,
-        pathRewrite: { "^/api": "" }
+        changeOrigin: true
+        // pathRewrite: { "^/api": "" }
         // this.$http.requstGetApi('/api',{city: '北京'})
       }
     }

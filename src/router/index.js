@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-11-28 21:20:16
+ * @LastEditTime: 2021-01-10 09:55:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\router\index.js
@@ -54,6 +54,15 @@ const routes = [
     component: () => import(/* webpackChunkName: "form" */ "../views/form.vue"),
     meta: {
       title: "Form"
+    }
+  },
+  {
+    path: "/mysql",
+    name: "Mysql",
+    component: () =>
+      import(/* webpackChunkName: "mysql" */ "../views/mysql.vue"),
+    meta: {
+      title: "Mysql"
     }
   },
   {
