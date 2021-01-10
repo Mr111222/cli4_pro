@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-03 11:18:23
- * @LastEditTime: 2021-01-10 10:55:30
+ * @LastEditTime: 2021-01-10 14:40:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\server.js
@@ -44,7 +44,7 @@ server.context.db = db;
 
 // get all
 router.get("/api/list", async ctx => {
-  let datas = await ctx.db.query("SELECT * FROM zz_test");
+  let datas = await ctx.db.query("SELECT * FROM zz_test order by id desc");
   ctx.response.body = datas;
 });
 

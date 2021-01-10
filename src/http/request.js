@@ -83,6 +83,8 @@ http.interceptors.response.use(
         //   message: "你的网络已断开，请检查网络",
         //   type: "error"
         // });
+      } else {
+        store.commit("setErrMsg", "Network Error Timeout 10000 ...");
       }
       return Promise.reject(error);
     }
