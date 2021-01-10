@@ -1,7 +1,11 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-04 22:46:42
- * @LastEditTime: 2021-01-10 11:15:32
+<<<<<<< HEAD
+ * @LastEditTime: 2021-01-10 11:40:28
+=======
+ * @LastEditTime: 2021-01-10 11:36:54
+>>>>>>> 9f1142c181e48aed320842b7a6f6afd8258d4b0a
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project-three\README.md
@@ -55,4 +59,4 @@ https://blog.csdn.net/lanseguhui/article/details/103520190
 
 ### 启动 node 服务 nodemon server.js
 
-mysql 服务
+连接 mysql.........
