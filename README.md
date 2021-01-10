@@ -54,3 +54,4 @@ https://blog.csdn.net/lanseguhui/article/details/103520190
 参考 store 文件夹
 
 ### 启动 node 服务 nodemon server.js
+连接mysql
