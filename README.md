@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-04 22:46:42
- * @LastEditTime: 2021-01-10 09:49:01
+ * @LastEditTime: 2021-01-10 11:15:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project-three\README.md
@@ -54,3 +54,5 @@ https://blog.csdn.net/lanseguhui/article/details/103520190
 参考 store 文件夹
 
 ### 启动 node 服务 nodemon server.js
+
+mysql 服务
