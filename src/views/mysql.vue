@@ -1,7 +1,7 @@
 <!--
  * @name: your name
  * @Date: 2020-11-28 21:14:29
- * @LastEditTime: 2021-01-10 13:32:32
+ * @LastEditTime: 2021-01-12 20:08:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilesPath: \cli4_pro\src\ages\form.vue
@@ -9,7 +9,7 @@
 <template>
   <div>
     <el-button @click="newAdd">新增</el-button>
-    <el-table :data="list">
+    <el-table :data="list" height="500">
       <el-table-column prop="name" label="姓名" width="180"> </el-table-column>
       <el-table-column prop="age" label="描述"> </el-table-column>
       <el-table-column prop="files" label="模板" show-overflow-tooltip>
@@ -40,6 +40,16 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pageObj.current"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="pageObj.limit"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="pageObj.total"
+    >
+    </el-pagination>
     <el-dialog
       title="新增"
       :visible.sync="dialogVisible"
@@ -155,7 +165,11 @@ export default {
         name: "",
         age: "",
         files: ""
-        // id: Math.floor(Math.random() * (255 - 1) * 100)
+      },
+      pageObj: {
+        current: 1,
+        limit: 10,
+        total: 0
       },
       rules: {
         pass: [{ validator: validatePass, trigger: "blur" }],
@@ -207,6 +221,7 @@ export default {
     async getList() {
       let datas = await this.$http.requstGetApi("/api/list");
       this.list = datas;
+      this.pageObj.total = datas.length;
     },
     async addFn(data) {
       let datas = await this.$http.requstPostApi("/api/list/add", data);
@@ -217,9 +232,19 @@ export default {
         this.getList();
       }
     },
-    onEditorReady() {
-      // 准备编辑器
+    //分页
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
     },
+    async handleCurrentChange(val) {
+      let data = {
+        page: val,
+        size: this.pageObj.limit
+      };
+      let datas = await this.$http.requstPostApi(`/api/listPage`, data);
+      this.list = datas;
+    },
+    onEditorReady() {}, // 准备编辑器
     onEditorBlur() {}, // 失去焦点事件
     onEditorFocus() {}, // 获得焦点事件
     onEditorChange() {}, // 内容改变事件

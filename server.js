@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-03 11:18:23
- * @LastEditTime: 2021-01-10 14:40:53
+ * @LastEditTime: 2021-01-12 20:05:53
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\server.js
@@ -47,6 +47,20 @@ router.get("/api/list", async ctx => {
   let datas = await ctx.db.query("SELECT * FROM zz_test order by id desc");
   ctx.response.body = datas;
 });
+
+// get page all
+router.post("/api/listPage", async ctx => {
+  let size = (ctx.request.body.page - 1) * ctx.request.body.size;
+  let datas = await ctx.db.query(
+    `select * from zz_test order by id desc limit ${size},${ctx.request.body.size}`
+    // `select * from zz_test limit 10,10`
+  );
+  ctx.response.body = datas;
+});
+
+// select * from table limit (page_num-1)*page_size,page_size;
+
+// 其中page_num是页码，page_szie是每页显示的条数
 
 // select id
 router.get("/api/list/:id", async ctx => {

@@ -52,8 +52,8 @@ const errorHandle = (status, err) => {
       store.commit("setErrMsg", "请求路径不存在");
       break;
     default:
-      console.log(err);
-      store.commit("setErrMsg", err);
+      console.log(err, "err");
+      store.commit("setErrMsg", err.data);
   }
   store.commit("setLoading", false);
 };
@@ -73,7 +73,7 @@ http.interceptors.response.use(
     const { response } = error;
     if (response) {
       // 请求已发出，但是不在2xx的范围
-      errorHandle(response.status, response.data.msg);
+      errorHandle(response.status, response);
       return Promise.reject(response);
     } else {
       // 处理断网的情况
