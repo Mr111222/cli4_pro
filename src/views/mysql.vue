@@ -1,7 +1,7 @@
 <!--
  * @name: your name
  * @Date: 2020-11-28 21:14:29
- * @LastEditTime: 2021-01-12 20:08:16
+ * @LastEditTime: 2021-01-17 18:32:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilesPath: \cli4_pro\src\ages\form.vue
@@ -218,10 +218,18 @@ export default {
         }
       });
     },
-    async getList() {
-      let datas = await this.$http.requstGetApi("/api/list");
-      this.list = datas;
-      this.pageObj.total = datas.length;
+    async getList(val = 1) {
+      // if (this.list.length === 0) {
+      //   if (this.pageObj.current === 1) return;
+      //   this.pageObj.current -= this.pageObj.current;
+      // }
+      let data = {
+        page: this.pageObj.current > 1 ? this.pageObj.current : val,
+        size: this.pageObj.limit
+      };
+      let datas = await this.$http.requstPostApi(`/api/listPage`, data);
+      this.list = datas.list;
+      this.pageObj.total = datas.total;
     },
     async addFn(data) {
       let datas = await this.$http.requstPostApi("/api/list/add", data);
@@ -237,12 +245,15 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     async handleCurrentChange(val) {
-      let data = {
-        page: val,
-        size: this.pageObj.limit
-      };
-      let datas = await this.$http.requstPostApi(`/api/listPage`, data);
-      this.list = datas;
+      this.pageObj.current = val;
+      this.getList(val);
+      // let data = {
+      //   page: val,
+      //   size: this.pageObj.limit
+      // };
+      // let datas = await this.$http.requstPostApi(`/api/listPage`, data);
+      // this.list = datas.list;
+      // this.total = datas.total;
     },
     onEditorReady() {}, // 准备编辑器
     onEditorBlur() {}, // 失去焦点事件
@@ -255,6 +266,9 @@ export default {
       let datas = await this.$http.requstGetApi(`/api/list/del/${id}`);
       if (datas.err === 0) {
         this.$message.success("删除成功");
+        if (this.list.length - 1 <= 0 && this.pageObj.current > 1) {
+          this.pageObj.current -= 1;
+        }
         this.getList();
       }
     },

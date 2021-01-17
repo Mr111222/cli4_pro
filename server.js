@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-01-03 11:18:23
- * @LastEditTime: 2021-01-12 20:05:53
+ * @LastEditTime: 2021-01-16 19:54:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\server.js
@@ -50,12 +50,18 @@ router.get("/api/list", async ctx => {
 
 // get page all
 router.post("/api/listPage", async ctx => {
+  const obj = {
+    list: null,
+    total: 0
+  };
   let size = (ctx.request.body.page - 1) * ctx.request.body.size;
   let datas = await ctx.db.query(
     `select * from zz_test order by id desc limit ${size},${ctx.request.body.size}`
-    // `select * from zz_test limit 10,10`
   );
-  ctx.response.body = datas;
+  obj.list = datas;
+  let length = await ctx.db.query(`select count(*) from zz_test`);
+  obj.total = length[0]["count(*)"];
+  ctx.response.body = obj;
 });
 
 // select * from table limit (page_num-1)*page_size,page_size;
