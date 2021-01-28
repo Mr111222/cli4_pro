@@ -29,6 +29,15 @@ server.use(
   })
 );
 
+// server.all('*', function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+//     res.header("X-Powered-By", ' 3.2.1');
+//     res.header("Content-Type", "application/json;charset=utf-8");
+//     next();
+// })
+
 // 连接 mysql
 let conn = mysql.createPool({
   host: "localhost",
@@ -37,6 +46,17 @@ let conn = mysql.createPool({
   port: "3306",
   database: "class_tab"
 });
+
+// conn.connect(function(err){
+//   if(err){
+//     console.log(err);
+//     console.log("错误")
+//     return;
+//   }else{
+//     res.write("数据库连接成功");
+//     res.end();
+//   }
+// });
 
 let db = co(conn);
 

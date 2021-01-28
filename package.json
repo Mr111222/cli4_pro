@@ -18,7 +18,8 @@
     "vue-router": "^3.2.0",
     "vue-table-with-tree-grid": "^0.2.4",
     "vuex": "^3.4.0",
-    "vx-easyui": "^1.2.17"
+    "vx-easyui": "^1.2.17",
+    "wangeditor": "^4.6.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

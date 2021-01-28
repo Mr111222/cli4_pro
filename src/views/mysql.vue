@@ -1,7 +1,7 @@
 <!--
  * @name: your name
  * @Date: 2020-11-28 21:14:29
- * @LastEditTime: 2021-01-17 18:32:41
+ * @LastEditTime: 2021-01-28 16:31:21
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilesPath: \cli4_pro\src\ages\form.vue
@@ -74,16 +74,10 @@
         </el-form-item>
         <el-form-item label="files" prop="files">
           <div class="edit_container">
-            <quill-editor
-              style="height:200px;"
+            <editor-bar
               v-model="ruleForm.files"
-              ref="myQuillEditor"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
-            >
-            </quill-editor>
+              @change="wangChange"
+            ></editor-bar>
           </div>
         </el-form-item>
       </el-form>
@@ -109,33 +103,27 @@
             <el-input v-model="editObj.age"></el-input>
           </el-form-item>
           <el-form-item label="files" prop="files">
-            <quill-editor
-              style="height:180px;"
-              v-model="editObj.files"
-              :options="editorOption"
-              @blur="onEditorBlur($event)"
-              @focus="onEditorFocus($event)"
-              @change="onEditorChange($event)"
-            >
-            </quill-editor>
+            <editor-bar
+              @change="wangChangeUpdata"
+              :content="editObj.files"
+              :is-detail="isDetail"
+            ></editor-bar>
           </el-form-item>
         </el-form>
       </div>
 
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="editUpdata" v-show="isDetail"
-          >提交修改</el-button
-        >
+      <span slot="footer" class="dialog-footer" v-if="isDetail">
+        <el-button type="primary" @click="editUpdata">提交修改</el-button>
+      </span>
+      <span slot="footer" class="dialog-footer" v-else>
+        <el-button type="primary" @click="closeUpdata">关闭</el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { quillEditor } from "vue-quill-editor"; //调用编辑器
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
+import EditorBar from "../components/wangEditor";
 export default {
   data() {
     var checkage = (rule, value, callback) => {
@@ -153,14 +141,8 @@ export default {
         callback();
       }
     };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入标题"));
-      } else {
-        callback();
-      }
-    };
     return {
+      isClear: false,
       ruleForm: {
         name: "",
         age: "",
@@ -196,7 +178,7 @@ export default {
     };
   },
   components: {
-    quillEditor
+    EditorBar
   },
   mounted() {
     this.getList();
@@ -219,10 +201,6 @@ export default {
       });
     },
     async getList(val = 1) {
-      // if (this.list.length === 0) {
-      //   if (this.pageObj.current === 1) return;
-      //   this.pageObj.current -= this.pageObj.current;
-      // }
       let data = {
         page: this.pageObj.current > 1 ? this.pageObj.current : val,
         size: this.pageObj.limit
@@ -240,6 +218,13 @@ export default {
         this.getList();
       }
     },
+    // wangChange emit change
+    wangChange(val) {
+      this.ruleForm.files = val;
+    },
+    wangChangeUpdata(val) {
+      this.editObj.files = val;
+    },
     //分页
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
@@ -247,18 +232,7 @@ export default {
     async handleCurrentChange(val) {
       this.pageObj.current = val;
       this.getList(val);
-      // let data = {
-      //   page: val,
-      //   size: this.pageObj.limit
-      // };
-      // let datas = await this.$http.requstPostApi(`/api/listPage`, data);
-      // this.list = datas.list;
-      // this.total = datas.total;
     },
-    onEditorReady() {}, // 准备编辑器
-    onEditorBlur() {}, // 失去焦点事件
-    onEditorFocus() {}, // 获得焦点事件
-    onEditorChange() {}, // 内容改变事件
     resetForm(formName) {
       this.$refs[formName].resetFields();
     },
@@ -299,9 +273,10 @@ export default {
       if (datas.err === 0) {
         this.editorVisable = false;
         this.getList();
-      } else {
-        console.log(datas.datas, 9999);
       }
+    },
+    closeUpdata() {
+      this.editorVisable = false;
     }
   }
 };
