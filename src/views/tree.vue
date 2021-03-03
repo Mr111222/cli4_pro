@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <h2>Basic Tree</h2>
-        <Tree :data="data" @selectionChange="selection=$event"></Tree>
-    <p v-if="selection">Selected: {{selection.text}}</p>
-    </div>
+  <div>
+    <h2>Basic Tree</h2>
+    <Tree :data="data" @selectionChange="selection = $event"></Tree>
+    <p v-if="selection">Selected: {{ selection.text }}</p>
+  </div>
 </template>
- 
+
 <script>
 export default {
   data() {

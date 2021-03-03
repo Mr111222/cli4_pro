@@ -1,6 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2020-10-11 20:57:26
+ * @LastEditTime: 2021-03-03 21:10:46
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \cli4_pro\src\store\index.js
+ */
 import Vue from "vue";
 import Vuex from "vuex";
 import login from "./modules/login";
+import language from "./modules/language";
 import getters from "./getters";
 
 Vue.use(Vuex);
@@ -30,7 +39,8 @@ const store = new Vuex.Store({
   },
   actions: {},
   modules: {
-    login
+    login,
+    language
   },
   getters
 });

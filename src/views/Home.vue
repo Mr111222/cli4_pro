@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2021-01-10 09:56:08
+ * @LastEditTime: 2021-03-03 20:42:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\Home.vue
@@ -21,6 +21,10 @@
     <router-link to="/form">form</router-link>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <router-link to="/mysql">mysql</router-link>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <router-link to="/queue">queue</router-link>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <router-link to="/echarts">echarts</router-link>
   </div>
 </template>
 
