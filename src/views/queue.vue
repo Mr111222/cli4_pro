@@ -124,15 +124,6 @@
             break;
           }
         }
-
-
-        // if (list0.length > index && index >= 0) {
-        //   var up = list0[index];
-        //   stopQueue.removeTask(up);
-        // } else {
-        //   alert('没有可删除的');
-        // }
-
       },
 
     }
