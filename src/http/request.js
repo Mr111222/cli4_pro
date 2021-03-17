@@ -52,8 +52,8 @@ const errorHandle = (status, err) => {
       store.commit("setErrMsg", "请求路径不存在");
       break;
     default:
-      console.log(err, "err");
-      store.commit("setErrMsg", err.data);
+      console.log(err);
+      store.commit("setErrMsg", err);
   }
   store.commit("setLoading", false);
 };
@@ -73,7 +73,7 @@ http.interceptors.response.use(
     const { response } = error;
     if (response) {
       // 请求已发出，但是不在2xx的范围
-      errorHandle(response.status, response);
+      errorHandle(response.status, response.data.msg);
       return Promise.reject(response);
     } else {
       // 处理断网的情况
@@ -83,8 +83,6 @@ http.interceptors.response.use(
         //   message: "你的网络已断开，请检查网络",
         //   type: "error"
         // });
-      } else {
-        store.commit("setErrMsg", "Network Error Timeout 10000 ...");
       }
       return Promise.reject(error);
     }
@@ -131,10 +129,10 @@ http.adornData = (data = {}, openDefultdata = true, contentType = "json") => {
  * @param {String} url [请求地址]
  * @param {Object} params [请求携带参数]
  */
-http.requstPostApi = (url, params) => {
+http.requstPostApi = (url, params, type="json") => {
   return new Promise((resolve, reject) => {
     http
-      .post(http.adornUrl(url), params)
+      .post(http.adornUrl(url), http.adornData(params, true, type))
       .then(res => {
         resolve(res.data);
       })
@@ -154,7 +152,7 @@ http.requstGetApi = (url, params) => {
     http
       .get(http.adornUrl(url), { params: params })
       .then(res => {
-        resolve(res.data);
+        resolve(res.data.data);
       })
       .catch(error => {
         reject(error);

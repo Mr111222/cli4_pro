@@ -1,22 +1,12 @@
-/*
- * @Author: your name
- * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2020-12-13 15:22:19
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \cli4_pro\src\store\modules\login.js
- */
 const LOGIN = "LOGIN";
 const LOGOUT = "LOGOUT";
 const ALERT = "ALERT";
-const MESSAGE = "MESSAGE";
 
 const state = {
   loginData: {
     rem: false,
     autoVal: false
-  },
-  message: "zz"
+  }
 };
 const getters = {};
 
@@ -41,9 +31,6 @@ const mutations = {
   },
   [ALERT](state, msg) {
     alert(msg);
-  },
-  [MESSAGE](state, msg) {
-    state.message = msg;
   }
 };
 

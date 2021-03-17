@@ -10,6 +10,9 @@
     </p>
     <h3>Installed CLI Plugins</h3>
     <el-button type="danger" @click="closeFn">关闭</el-button>
+    <el-button @click="getFn">Login</el-button>
+    <el-button @click="getMenu">getMenu</el-button>
+    <el-button type="danger" @click="getAjax">getAjax</el-button>
     <ul>
       <li v-for="item in list" :key="item.id" @click="addList(item.path)">
         <!-- http://localhost:8080/home -->
@@ -59,6 +62,31 @@ export default {
       );
       this.win_num += 1;
       console.log(this.win_Array);
+    },
+    getFn () {
+      this.$http.requstPostApi('/otp/login',{
+        username: 'admin',
+        password: 123456
+      },'from').then(res=>{
+        // username: admin
+        // password: 123456
+        console.log(res, 32132)
+      })
+    },
+    async getMenu () {
+      let datas = await this.$http.requstPostApi('/otp/backstage/get_menu')
+      console.log(datas, 99)
+    },
+    getAjax () {
+      this.$http.requstPostApi('/otp/message/list', {
+        messageStatus: 0,
+        page: 0,
+        pageSize: 0,
+        userId: 0}
+      ).then(res=>{
+        console.log(res, 999)
+      })
+      
     }
   }
 };

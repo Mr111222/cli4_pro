@@ -1,11 +1,3 @@
-/*
- * @Author: your name
- * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2021-03-03 20:42:39
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \cli4_pro\src\router\index.js
- */
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "@/views/login";
@@ -57,33 +49,6 @@ const routes = [
     }
   },
   {
-    path: "/mysql",
-    name: "Mysql",
-    component: () =>
-      import(/* webpackChunkName: "mysql" */ "../views/mysql.vue"),
-    meta: {
-      title: "Mysql"
-    }
-  },
-  {
-    path: "/echarts",
-    name: "Echarts",
-    component: () =>
-      import(/* webpackChunkName: "echarts" */ "../views/echarts.vue"),
-    meta: {
-      title: "echarts"
-    }
-  },
-  {
-    path: "/queue",
-    name: "Queue",
-    component: () =>
-      import(/* webpackChunkName: "queue" */ "../views/queue.vue"),
-    meta: {
-      title: "queue"
-    }
-  },
-  {
     path: "/element",
     name: "Ele",
     component: () =>
@@ -93,19 +58,19 @@ const routes = [
     }
   },
   {
-    path: "/table",
-    name: "Tab",
-    component: () =>
-      import(/* webpackChunkName: "element" */ "../views/table.vue"),
-    meta: {
-      title: "Table"
-    }
-  },
-  {
     path: "/project",
     name: "Project",
     component: () =>
       import(/* webpackChunkName: "project" */ "../views/project.vue"),
+    meta: {
+      title: "Element"
+    }
+  },
+  {
+    path: "/task",
+    name: "task",
+    component: () =>
+      import(/* webpackChunkName: "task" */ "../views/task.vue"),
     meta: {
       title: "Element"
     }

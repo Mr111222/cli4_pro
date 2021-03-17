@@ -1,86 +1,74 @@
-<!--
- * @Author: your name
- * @Date: 2020-11-28 21:14:29
- * @LastEditTime: 2020-12-13 18:52:12
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \cli4_pro\src\views\About.vue
--->
 <template>
   <div>
-    <div class="edit_container">
-      <quill-editor
-        style="height:200px;"
-        v-model="content"
-        ref="myQuillEditor"
-        :options="editorOption"
-        @blur="onEditorBlur($event)"
-        @focus="onEditorFocus($event)"
-        @change="onEditorChange($event)"
-      >
-      </quill-editor>
-    </div>
-    {{ logmsg }}
-    <el-button @click="getVal">获取</el-button>
-    <el-input v-model="msg"></el-input>
-    <el-button @click="changeLogMessage">changeLogMessage</el-button>
+    <p>yan.xu@partner.bmw-brilliance.cn,zhi.zhou.ba@partner.bmw-brilliance.cn</p>
+    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+  <el-form-item label="Activity form" prop="desc">
+    <el-input type="textarea" v-model="ruleForm.desc" :row="40" :col="20"></el-input>
+  </el-form-item>
+  <el-form-item>
+    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
+    <el-button @click="resetForm('ruleForm')">Reset</el-button>
+  </el-form-item>
+</el-form>
+<More></More>
   </div>
 </template>
-
 <script>
-import { mapGetters } from "vuex";
-import { quillEditor } from "vue-quill-editor"; //调用编辑器
-import "quill/dist/quill.core.css";
-import "quill/dist/quill.snow.css";
-import "quill/dist/quill.bubble.css";
-export default {
-  components: {
-    quillEditor
-  },
-  data() {
-    return {
-      msg: "",
-      content: this.$store.state.txt,
-      htmls: "",
-      editorOption: {
-        clipboard: {
-          matchVisual: false
-        }
+  const checkEmail = (rule, value, callback, _this) => {
+    const mailReg = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/
+    if (!value) return callback(new Error('请输入邮箱'))
+    let vals = value.trim().replace(/\s+/g, '')
+    if (vals.indexOf(',') > 0) {
+      const state = vals.split(',').every(cur => mailReg.test(cur))
+      if (!state) {
+        callback(new Error('格式错误'))
+      } else {
+        callback()
       }
-    };
-  },
-  methods: {
-    removeHTMLTag(description) {
-      description = description.replace(/(\n)/g, "");
-      description = description.replace(/(\t)/g, "");
-      description = description.replace(/(\r)/g, "");
-      description = description.replace(/\s*/g, "");
-      return description;
-    },
-    onEditorReady(editor) {
-      // 准备编辑器
-    },
-    onEditorBlur() {}, // 失去焦点事件
-    onEditorFocus() {}, // 获得焦点事件
-    onEditorChange() {}, // 内容改变事件
-    getVal() {
-      console.log(this.content, "content");
-      this.htmls = this.content;
-    },
-    changeLogMessage() {
-      this.$store.commit("login/MESSAGE", this.msg);
-    }
-  },
-  computed: {
-    ...mapGetters(["login", "logmsg"]),
-    editor() {
-      return this.$refs.myQuillEditor.quill;
+    }else{
+      if (mailReg.test(vals)) {
+         callback()
+      } else {
+        callback(new Error('格式错误'))
+        // callback(new Error(_this.$t('emailErr'))) // i18n 用法
+      }
     }
   }
-};
+  import More from '@/components/more'
+  export default {
+    data() {
+      return {
+        ruleForm: {
+          desc: ''
+        },
+        rules: {
+          desc: [
+            { required: true, 
+              trigger: 'blur',
+              validator: (rule, value, callback) => {
+                checkEmail(rule, value, callback, this)
+              } 
+            }
+          ]
+        }
+      };
+    },
+    components: {More},
+    methods: {
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          console.log(valid, 798)
+          if (valid) {
+            alert('submit!');
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+    }
+  }
 </script>
-<style>
-.edit_container {
-  height: 300px;
-}
-</style>
