@@ -1,74 +1,95 @@
 <template>
   <div>
-    <p>yan.xu@partner.bmw-brilliance.cn,zhi.zhou.ba@partner.bmw-brilliance.cn</p>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-  <el-form-item label="Activity form" prop="desc">
-    <el-input type="textarea" v-model="ruleForm.desc" :row="40" :col="20"></el-input>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="submitForm('ruleForm')">Create</el-button>
-    <el-button @click="resetForm('ruleForm')">Reset</el-button>
-  </el-form-item>
-</el-form>
-<More></More>
+    <template>
+      <el-table
+        :class="className ? className : ''"
+        :data="tableData"
+        style="width: 100%"
+        @cell-mouse-enter="setHover"
+      >
+        <el-table-column class-name="data" prop="date" label="日期" width="180">
+        </el-table-column>
+        <el-table-column class-name="name" prop="name" label="姓名" width="180">
+        </el-table-column>
+        <el-table-column class-name="adr" prop="address" label="地址">
+        </el-table-column>
+      </el-table>
+    </template>
   </div>
 </template>
 <script>
-  const checkEmail = (rule, value, callback, _this) => {
-    const mailReg = /^[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*@[a-zA-Z0-9]+([-_.][a-zA-Z0-9]+)*\.[a-z]{2,}$/
-    if (!value) return callback(new Error('请输入邮箱'))
-    let vals = value.trim().replace(/\s+/g, '')
-    if (vals.indexOf(',') > 0) {
-      const state = vals.split(',').every(cur => mailReg.test(cur))
-      if (!state) {
-        callback(new Error('格式错误'))
-      } else {
-        callback()
-      }
-    }else{
-      if (mailReg.test(vals)) {
-         callback()
-      } else {
-        callback(new Error('格式错误'))
-        // callback(new Error(_this.$t('emailErr'))) // i18n 用法
-      }
-    }
-  }
-  import More from '@/components/more'
-  export default {
-    data() {
-      return {
-        ruleForm: {
-          desc: ''
+export default {
+  data() {
+    return {
+      className: "oooop",
+      tableData: [
+        {
+          date: "2016-05-02",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1518 弄"
         },
-        rules: {
-          desc: [
-            { required: true, 
-              trigger: 'blur',
-              validator: (rule, value, callback) => {
-                checkEmail(rule, value, callback, this)
-              } 
-            }
-          ]
+        {
+          date: "2016-05-04",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1517 弄"
+        },
+        {
+          date: "2016-05-01",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1519 弄"
+        },
+        {
+          date: "2016-05-03",
+          name: "王小虎",
+          address: "上海市普陀区金沙江路 1516 弄"
         }
-      };
-    },
-    components: {More},
-    methods: {
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
-          console.log(valid, 798)
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
+      ]
+    };
+  },
+  methods: {
+    setHover(column, cell) {
+      let className = "";
+      switch (cell.className) {
+        case "data":
+          className = "box_data";
+          break;
+        case "name":
+          className = "box_name";
+          break;
+        case "adr":
+          className = "box_adr";
+          break;
+      }
+      this.className = className;
+    }
+  }
+};
+</script>
+
+<style lang="scss">
+$arrColor: (
+  (
+    name: "name",
+    val: #f0ad4e
+  ),
+  (
+    name: "adr",
+    val: #1aad19
+  ),
+  (
+    name: "data",
+    val: #4e9ef0
+  )
+);
+
+@for $i from 1 through length($arrColor) {
+  $item: nth($arrColor, $i);
+  .box_#{map-get($item, name)} {
+    &:hover {
+      .#{map-get($item, name)} {
+        background: map-get($item, val) !important;
       }
     }
   }
-</script>
+}
+</style>
