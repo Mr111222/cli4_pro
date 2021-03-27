@@ -1,94 +1,72 @@
 <template>
-  <div>
-    <template>
-      <el-table
-        :class="className ? className : ''"
-        :data="tableData"
-        style="width: 100%"
-        @cell-mouse-enter="setHover"
-      >
-        <el-table-column class-name="data" prop="date" label="日期" width="180">
-        </el-table-column>
-        <el-table-column class-name="name" prop="name" label="姓名" width="180">
-        </el-table-column>
-        <el-table-column class-name="adr" prop="address" label="地址">
-        </el-table-column>
-      </el-table>
-    </template>
+  <div class="main">
+    <div
+      class="box"
+      v-for="(item, index) in list"
+      :key="index"
+      @mouseenter="setHover(item)"
+      @mouseleave="cancelHover(item)"
+    >
+      <div>{{ item.name }}</div>
+      <div class="box_hover">
+        hovers........
+      </div>
+    </div>
   </div>
 </template>
+
 <script>
 export default {
   data() {
     return {
-      className: "oooop",
-      tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
+      isHover: false,
+      list: [
+        { isHover: false, name: "pps1" },
+        { isHover: false, name: "pps2" },
+        { isHover: false, name: "pps3" },
+        { isHover: false, name: "pps4" },
+        { isHover: false, name: "pps5" },
+        { isHover: false, name: "pps6" },
+        { isHover: false, name: "pps7" }
       ]
     };
   },
   methods: {
-    setHover(column, cell) {
-      let className = "";
-      switch (cell.className) {
-        case "data":
-          className = "box_data";
-          break;
-        case "name":
-          className = "box_name";
-          break;
-        case "adr":
-          className = "box_adr";
-          break;
-      }
-      this.className = className;
+    setHover(item) {
+      item.isHover = true;
+    },
+    cancelHover(item) {
+      item.isHover = false;
     }
   }
 };
 </script>
-
-<style lang="scss">
-$arrColor: (
-  (
-    name: "name",
-    val: #f0ad4e
-  ),
-  (
-    name: "adr",
-    val: #1aad19
-  ),
-  (
-    name: "data",
-    val: #4e9ef0
-  )
-);
-
-@for $i from 1 through length($arrColor) {
-  $item: nth($arrColor, $i);
-  .box_#{map-get($item, name)} {
+<style scoped lang="scss">
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  .box {
+    flex: 0 0 22.5%;
+    margin: 1%;
+    height: 100px;
+    background: pink;
+    text-align: center;
+    line-height: 100px;
+    position: relative;
     &:hover {
-      .#{map-get($item, name)} {
-        background: map-get($item, val) !important;
+      .box_hover {
+        height: 220px;
       }
+    }
+    .box_hover {
+      position: absolute;
+      width: 100%;
+      transition: height 0.5s ease;
+      height: 0;
+      top: 0%;
+      overflow: hidden;
+      background: red;
+      z-index: 999;
     }
   }
 }
