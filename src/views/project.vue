@@ -314,7 +314,7 @@ export default {
 $arrColor: (
   (
     name: "name",
-    val: #f0ad4e
+    val: #f0ad42
   ),
   (
     name: "adr",
