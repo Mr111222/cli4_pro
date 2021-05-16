@@ -1,73 +1,138 @@
 <template>
-  <div>
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-    <div class="link">
-      <router-link to="/element">Element</router-link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <router-link to="/about">About</router-link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <router-link to="/project">project</router-link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <router-link to="/tree">Tree</router-link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <router-link to="/form">form</router-link>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <router-link to="/task">task</router-link>
+  <div class="box">
+    <div class="left">
+      <el-menu
+        router
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+      >
+        <!-- Element About project Tree form task -->
+        <el-menu-item :index="item.path" v-for="item in menu" :key="item.index">
+          <i class="el-icon-menu"></i>
+          <span slot="title">{{ item.title }}</span>
+        </el-menu-item>
+      </el-menu>
     </div>
-    <div style="margin-top: 40px; clear:both;">
-      <el-select @change="setFont" v-model="fonts">
-        <el-option v-for="item in fontList" :label="item.label" :value="item.value"></el-option>
-    </el-select>
-        <div class="home" :style="style">Welcome to Your Vue.js App</div>
-        <div>在线字体下载地址:https://www.dafont.com/</div>
+    <div class="right">
+      <router-view></router-view>
+      <!-- <el-button @click="getWeather()">ajax1</el-button>
+
+      <el-button @click="alertFn()">ALERT</el-button>
+      <el-button @click="switchFn(10)">switchFn</el-button> -->
     </div>
   </div>
 </template>
-
+<style lang="scss">
+.box {
+  display: flex;
+  width: 100%;
+  height: calc(100vh);
+  .left {
+    width: 255px;
+    background: $bgColor;
+  }
+  .right {
+    flex: 1;
+    border: 1px solid #ccc;
+  }
+}
+</style>
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import axios from "axios";
 export default {
-  name: "Home",
-  data () {
+  data() {
     return {
-      fonts: 'cute',
-      val: '',
-      fontList: [{label: 'Anger',value: 'anger'},{label: 'Day',value: 'day'},{label: 'Infe',value: 'infe'},{label: 'Wra',value: 'wra'},{label: 'Cute',value: 'cute'},{label: 'Days', value: 'days'}],
-      style: {}
-    }
-  },
-  components: {
-    HelloWorld
+      // activeIndex: "",
+      msg: 12,
+      codeImg: "",
+      //  Element About project Tree form task
+      menu: [
+        {
+          index: 0,
+          title: "About",
+          path: "/about"
+        },
+        {
+          index: 2,
+          title: "Element",
+          path: "/element"
+        },
+        {
+          index: 3,
+          title: "project",
+          path: "/project"
+        },
+        {
+          index: 4,
+          title: "Tree",
+          path: "/tree"
+        },
+        {
+          index: 5,
+          title: "form",
+          path: "/form"
+        },
+        {
+          index: 6,
+          title: "Task",
+          path: "/task"
+        },
+        {
+          index: 7,
+          title: "View",
+          path: "/view"
+        },
+        {
+          index: 8,
+          title: "Table",
+          path: "/table"
+        },
+        {
+          index: 9,
+          title: "Flow",
+          path: "/flow"
+        },
+        {
+          index: 10,
+          title: "Topoloty",
+          path: "/topoloty"
+        }
+      ]
+    };
   },
   methods: {
-    setFont (val) {
-      this.val = val
-      this.style = {
-        fontFamily: val,
-        color:`#${Math.random().toString().substring(0,9)*1000000}`
+    switchFn(num) {
+      switch (num) {
+        case num < 10:
+          alert(num);
+          break;
+        default:
+          alert("111111");
       }
-    }
-  },
-  watch: {
-    fonts (old, newVal) {
-      if(old !== newVal) {
-        this.style = {
-          fontFamily: this.val,
-          color:`#${Math.random().toString().substring(0,9)*1000000}`
-        } 
-      }
-      
+    },
+    alertFn() {
+      this.$store.commit("login/ALERT", "我说测试数据");
+    },
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    async handleClose(key, keyPath) {
+      console.log(key, keyPath);
+      let datas = await axios.get(`api`, { city: "北京" });
+      console.log(datas);
+    },
+    async axiosGet() {
+      let datas = await axios.get(`api`, { city: "北京" });
+      console.log(datas);
+    },
+    async getWeather() {
+      let datas = await this.$http.requstGetApi(`api`, { city: "北京" });
+      console.log(datas, 9090);
     }
   }
 };
 </script>
-<style lang="scss">
-  .link {
-    margin-top:40px;
-  }
-  .home {
-    font-size: 30px;
-  }
-</style>

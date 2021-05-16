@@ -290,7 +290,21 @@ export default {
       ]
     };
   },
+  mounted() {
+    console.log(this.GetQueryString("number"), 9999);
+  },
   methods: {
+    GetQueryString(name) {
+      if (!name) return null;
+      var after = window.location.search;
+      after = after.substr(1) || window.location.hash.split("?")[1];
+      if (!after) return null;
+      if (after.indexOf(name) === -1) return null;
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+      var r = decodeURI(after).match(reg);
+      if (!r) return null;
+      return r[2];
+    },
     setHover(column, cell) {
       let className = "";
       switch (cell.className) {

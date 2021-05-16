@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 20:45:04
- * @LastEditTime: 2021-03-20 10:42:15
- * @LastEditors: your name
+ * @LastEditTime: 2021-05-10 21:27:34
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\main.js
  */
@@ -31,6 +31,19 @@ import Watermark from "@/utils/water";
 
 import ZkTable from "vue-table-with-tree-grid";
 Vue.use(ZkTable);
+
+// import MenuPro from "@/components/designMenu";
+// import "@/components/designMenu/css/menu.scss";
+
+// Vue.use(MenuPro);
+
+import MenuPro from "@/components/elMenu";
+// import "@/components/designMenu/css/menu.scss";
+
+Vue.use(MenuPro);
+
+import VerticalToggle from "@/components/toggle.js";
+// Vue.component(VerticalToggle.name, VerticalToggle);
 
 new Vue({
   router,

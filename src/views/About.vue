@@ -1,5 +1,18 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-03-17 21:27:06
+ * @LastEditTime: 2021-04-24 10:22:29
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \cli4_pro\src\views\About.vue
+-->
 <template>
   <div class="main">
+    <div style="width:500px; height:500px; overflow:auto;">
+      <img src="@/assets/logo.png" />
+      <img src="@/assets/bg.png" />
+      <img src="@/assets/photo.png" />
+    </div>
     <div
       class="box"
       v-for="(item, index) in list"

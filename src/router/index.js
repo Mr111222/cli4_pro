@@ -21,60 +21,151 @@ const routes = [
     component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
     meta: {
       title: "Home"
-    }
+    },
+    children: [
+      {
+        path: "/about",
+        name: "About",
+        component: () =>
+          import(/* webpackChunkName: "about" */ "../views/About.vue"),
+        meta: {
+          title: "About"
+        }
+      },
+      {
+        path: "/view",
+        name: "View",
+        component: () =>
+          import(/* webpackChunkName: "view" */ "../views/view.vue"),
+        meta: {
+          title: "view"
+        }
+      },
+      {
+        path: "/tree",
+        name: "Tree",
+        component: () =>
+          import(/* webpackChunkName: "tree" */ "../views/tree.vue"),
+        meta: {
+          title: "Tree"
+        }
+      },
+      {
+        path: "/form",
+        name: "Form",
+        component: () =>
+          import(/* webpackChunkName: "form" */ "../views/form.vue"),
+        meta: {
+          title: "Form"
+        }
+      },
+      {
+        path: "/element",
+        name: "Ele",
+        component: () =>
+          import(/* webpackChunkName: "element" */ "../views/element.vue"),
+        meta: {
+          title: "Element"
+        }
+      },
+      {
+        path: "/project",
+        name: "Project",
+        component: () =>
+          import(/* webpackChunkName: "project" */ "../views/project.vue"),
+        meta: {
+          title: "Project"
+        }
+      },
+      {
+        path: "/task",
+        name: "task",
+        component: () =>
+          import(/* webpackChunkName: "task" */ "../views/task.vue"),
+        meta: {
+          title: "Task"
+        }
+      },
+      {
+        path: "/table",
+        name: "table",
+        component: () =>
+          import(/* webpackChunkName: "table" */ "../views/table.vue"),
+        meta: {
+          title: "Table"
+        }
+      },
+      {
+        path: "/flow",
+        name: "flow",
+        component: () =>
+          import(/* webpackChunkName: "flow" */ "../views/flow.vue"),
+        meta: {
+          title: "Flow"
+        }
+      }
+    ]
   },
   {
-    path: "/about",
-    name: "About",
+    path: "/topoloty",
+    name: "topoloty",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "topoloty" */ "../views/topoloty.vue"),
     meta: {
-      title: "About"
+      title: "Topoloty"
     }
   },
-  {
-    path: "/tree",
-    name: "Tree",
-    component: () => import(/* webpackChunkName: "tree" */ "../views/tree.vue"),
-    meta: {
-      title: "Tree"
-    }
-  },
-  {
-    path: "/form",
-    name: "Form",
-    component: () => import(/* webpackChunkName: "form" */ "../views/form.vue"),
-    meta: {
-      title: "Form"
-    }
-  },
-  {
-    path: "/element",
-    name: "Ele",
-    component: () =>
-      import(/* webpackChunkName: "element" */ "../views/element.vue"),
-    meta: {
-      title: "Element"
-    }
-  },
-  {
-    path: "/project",
-    name: "Project",
-    component: () =>
-      import(/* webpackChunkName: "project" */ "../views/project.vue"),
-    meta: {
-      title: "Element"
-    }
-  },
-  {
-    path: "/task",
-    name: "task",
-    component: () =>
-      import(/* webpackChunkName: "task" */ "../views/task.vue"),
-    meta: {
-      title: "Element"
-    }
-  },
+  // {
+  //   path: "/about",
+  //   name: "About",
+  //   component: () =>
+  //     import(/* webpackChunkName: "about" */ "../views/About.vue"),
+  //   meta: {
+  //     title: "About"
+  //   }
+  // },
+  // {
+  //   path: "/tree",
+  //   name: "Tree",
+  //   component: () => import(/* webpackChunkName: "tree" */ "../views/tree.vue"),
+  //   meta: {
+  //     title: "Tree"
+  //   }
+  // },
+  // {
+  //   path: "/form",
+  //   name: "Form",
+  //   component: () => import(/* webpackChunkName: "form" */ "../views/form.vue"),
+  //   meta: {
+  //     title: "Form"
+  //   }
+  // },
+  // {
+  //   path: "/element",
+  //   name: "Ele",
+  //   component: () =>
+  //     import(/* webpackChunkName: "element" */ "../views/element.vue"),
+  //   meta: {
+  //     title: "Element"
+  //   }
+  // },
+  // {
+  //   path: "/project",
+  //   name: "Project",
+  //   component: () =>
+  //     import(/* webpackChunkName: "project" */ "../views/project.vue"),
+  //   meta: {
+  //     title: "Element"
+  //   }
+  // },
+  // {
+  //   path: "/task",
+  //   name: "task",
+  //   component: () => import(/* webpackChunkName: "task" */ "../views/task.vue"),
+  //   meta: {
+  //     title: "Element"
+  //   }
+  // },
   {
     path: "/test1",
     name: "T1",

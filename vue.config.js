@@ -1,6 +1,6 @@
 const path = require("path");
 const { HashedModuleIdsPlugin } = require("webpack");
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV === "prod";
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
