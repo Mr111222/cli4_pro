@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-17 21:27:06
- * @LastEditTime: 2021-04-24 10:22:29
+ * @LastEditTime: 2021-05-22 15:58:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -9,9 +9,7 @@
 <template>
   <div class="main">
     <div style="width:500px; height:500px; overflow:auto;">
-      <img src="@/assets/logo.png" />
-      <img src="@/assets/bg.png" />
-      <img src="@/assets/photo.png" />
+      <el-button @click="getNodeData">getNodeData</el-button>
     </div>
     <div
       class="box"
@@ -45,6 +43,10 @@ export default {
     };
   },
   methods: {
+    async getNodeData() {
+      let datas = await this.$http.requstGetApi("/v2");
+      console.log(datas, 999);
+    },
     setHover(item) {
       item.isHover = true;
     },
