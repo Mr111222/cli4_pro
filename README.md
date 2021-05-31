@@ -49,6 +49,7 @@ https://blog.csdn.net/weixin_43650973/article/details/99435766
 https://blog.csdn.net/lanseguhui/article/details/103520190
 
 ### workflow
+
 http://www.feeldesignstudio.com/vue-flowchart-editor/demo/
 
 ### vuex 多模块化
@@ -59,5 +60,10 @@ http://www.feeldesignstudio.com/vue-flowchart-editor/demo/
 
 连接 mysql.........
 
-### DIY游戏机
-  小风机，24V电源，LED Controller
+### DIY 游戏机
+
+小风机，24V 电源，LED Controller
+
+### 适配
+
+https://blog.csdn.net/qq_43156398/article/details/102785370

@@ -115,6 +115,15 @@ const routes = [
       title: "Topoloty"
     }
   },
+  {
+    path: "/canvas",
+    name: "canvas",
+    component: () =>
+      import(/* webpackChunkName: "canvas" */ "../views/canvas.vue"),
+    meta: {
+      title: "canvas"
+    }
+  },
   // {
   //   path: "/about",
   //   name: "About",

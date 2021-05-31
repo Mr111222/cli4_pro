@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-17 21:27:06
- * @LastEditTime: 2021-05-22 15:58:45
+ * @LastEditTime: 2021-05-31 21:27:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -10,6 +10,18 @@
   <div class="main">
     <div style="width:500px; height:500px; overflow:auto;">
       <el-button @click="getNodeData">getNodeData</el-button>
+    </div>
+    <div>
+      <el-select @change="setFont" v-model="fonts">
+        <el-option
+          v-for="(item, index) in fontList"
+          :label="item.label"
+          :value="item.value"
+          :key="index"
+        ></el-option>
+      </el-select>
+
+      <p :style="style">456465asdasd</p>
     </div>
     <div
       class="box"
@@ -39,8 +51,41 @@ export default {
         { isHover: false, name: "pps5" },
         { isHover: false, name: "pps6" },
         { isHover: false, name: "pps7" }
-      ]
+      ],
+      fonts: "",
+
+      fontList: [
+        { label: "Anger", value: "anger" },
+
+        { label: "Day", value: "day" },
+
+        { label: "Infe", value: "infe" },
+
+        { label: "Wra", value: "wra" },
+
+        { label: "Cute", value: "cute" },
+
+        { label: "Days", value: "days" },
+
+        { label: "Source", value: "source" },
+
+        { label: "SourceR", value: "source_r" },
+
+        { label: "BMW", value: "BMW" }
+      ],
+
+      style: {}
     };
+  },
+  watch: {
+    fonts(old, newVal) {
+      if (old !== newVal) {
+        this.style = {
+          fontFamily: this.val,
+          color: `#ff012`
+        };
+      }
+    }
   },
   methods: {
     async getNodeData() {
@@ -52,6 +97,9 @@ export default {
     },
     cancelHover(item) {
       item.isHover = false;
+    },
+    setFont(val) {
+      this.val = val;
     }
   }
 };
