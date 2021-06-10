@@ -1,8 +1,8 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-17 21:27:06
- * @LastEditTime: 2021-05-31 21:27:41
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-06-07 22:30:43
+ * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
 -->
@@ -10,6 +10,19 @@
   <div class="main">
     <div style="width:500px; height:500px; overflow:auto;">
       <el-button @click="getNodeData">getNodeData</el-button>
+      <el-upload class="upload-demo" action="#" :on-change="handleChange">
+        <el-button size="small" type="primary">点击上传</el-button>
+        <div slot="tip" class="el-upload__tip">
+          只能上传jpg/png文件，且不超过500kb
+        </div>
+      </el-upload>
+      <el-button
+        style="margin-left: 10px;"
+        size="small"
+        type="success"
+        @click="getWater"
+        >上传到服务器</el-button
+      >
     </div>
     <div>
       <el-select @change="setFont" v-model="fonts">
@@ -39,6 +52,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -74,7 +88,8 @@ export default {
         { label: "BMW", value: "BMW" }
       ],
 
-      style: {}
+      style: {},
+      files: null
     };
   },
   watch: {
@@ -88,6 +103,37 @@ export default {
     }
   },
   methods: {
+    async getWater() {
+      const forms = new FormData();
+      forms.append("file", this.files.raw);
+      let datas = await axios({
+        headers: {
+          "Content-type": "multipart/form-data",
+          Authorization:
+            "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbk5hbWUiOiJkZW1vMyIsInRlbmFudElkIjoiNDk3NjY5NjQ2MTU3OTI3MzUwOSIsInNvdXJjZSI6IkxPR0lOIiwiZXhwIjoxNjIzMTYxMzIzLCJ1c2VySWQiOiIxNzA0Nzk5ODgwNTcxMTcyNDQ1IiwidXNlcm5hbWUiOiJkZW1vMyJ9.Eq9A3yrPrP_SS_H-4dVsb7TYi7UB2GEcwN35AeqYlQo"
+        },
+        url: "/api/watermark/v1/watermark/image",
+        method: "post",
+        forms
+      });
+    },
+
+    dataToFormData(oData) {
+      const oFormData = new FormData();
+      for (const [key, val] of Object.entries(oData)) {
+        if (Array.isArray(val)) {
+          for (const oneItem of val) oFormData.append(key, oneItem);
+        } else {
+          oFormData.append(key, val);
+        }
+      }
+      return oFormData;
+    },
+    handleChange(file, fileList) {
+      this.files = file;
+      console.log(file, 999);
+      // this.fileList = fileList.slice(-3);
+    },
     async getNodeData() {
       let datas = await this.$http.requstGetApi("/v2");
       console.log(datas, 999);
