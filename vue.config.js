@@ -1,6 +1,6 @@
 const path = require("path");
 const { HashedModuleIdsPlugin } = require("webpack");
-const isProduction = process.env.NODE_ENV === "prod";
+const isProduction = process.env.NODE_ENV === "production";
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
@@ -15,24 +15,56 @@ module.exports = {
     hotOnly: false, // 热更新
     proxy: {
       "^/api": {
-        target: "http://localhost:9999/", // 重写路径
+        target: "http://wthrcdn.etouch.cn/weather_mini", // 重写路径
         ws: true, //开启WebSocket
         secure: false, // 如果是https接口，需要配置这个参数
-        changeOrigin: true
-        // pathRewrite: { "^/api": "" }
+        changeOrigin: true,
+        pathRewrite: { "^/api": "" }
+        // this.$http.requstGetApi('/api',{city: '北京'})
+      },
+      "^/otp": {
+        target: "http://otp.cdinfotech.top", // 重写路径
+        ws: true, //开启WebSocket
+        secure: false, // 如果是https接口，需要配置这个参数
+        changeOrigin: true,
+        pathRewrite: { "^/otp": "" }
         // this.$http.requstGetApi('/api',{city: '北京'})
       }
     }
   },
-  configureWebpack: config => {
-    config.resolve = {
+  configureWebpack:{
+    module:{
+        rules:[
+          {
+            test:/\.(woff2?|eot|ttf|otf)(\?.*)$/,
+            loader:'url-loader',
+            options:{
+              limit: 10000,
+            }
+          }
+          
+          // 多个rules 
+
+          // {
+          //   test:/\.(woff2?|eot|ttf|otf)(\?.*)$/,
+          //   loader:'url-loader',
+          //   options:{
+          //     limit: 10000,
+          //   }
+          // }
+
+      ]
+    },
+    resolve: {
       extensions: [".js", ".vue", ".json", ".css"],
       alias: {
         vue$: "vue/dist/vue.esm.js",
         "@": resolve("src")
       }
-    };
-    config.plugins.push(new HashedModuleIdsPlugin());
+    },
+    // 多个plugin 
+    // plugins:[...morePlugin] 
+    plugins:[new HashedModuleIdsPlugin()] 
   },
   chainWebpack: config => {
     config.resolve.alias
@@ -41,12 +73,12 @@ module.exports = {
       .set("@css", resolve("src/assets/css"));
     if (isProduction) {
       // 图片压缩
-      config.module
-        .rule("images")
-        .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-        .use("image-webpack-loader")
-        .loader("image-webpack-loader")
-        .options({ bypassOnDebug: true });
+      // config.module
+      //   .rule("images")
+      //   .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+      //   .use("image-webpack-loader")
+      //   .loader("image-webpack-loader")
+      //   .options({ bypassOnDebug: true });
       // 删除预加载
       config.plugins.delete("preload");
       config.plugins.delete("prefetch");
@@ -95,10 +127,7 @@ module.exports = {
       //       overrideBrowserslist: ["last 15 versions"]
       //     }),
       //     require("postcss-pxtorem")({
-                  // 换算的基数 设计稿是多大宽度，直接/10 -->  1920 转化为 192 以此类推
-                  // 安装postcss-pxtorem  版本号需要注意 npm i postcss-pxtorem@5.1.1
-
-      //       rootValue: 75,
+      //       rootValue: 75, // 换算的基数
       //       // 忽略转换正则匹配项。插件会转化所有的样式的px。比如引入了三方UI，也会被转化。目前我使用 selectorBlackList字段，来过滤
       //       //如果个别地方不想转化px。可以简单的使用大写的 PX 或 Px 。
       //       selectorBlackList: ["el"],
