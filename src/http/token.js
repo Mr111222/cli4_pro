@@ -1,9 +1,3 @@
-/*
- * @Author: zz
- * @Date: 2021-06-10 21:19:30
- * @LastEditors: zz
- * @LastEditTime: 2021-06-10 21:28:51
- */
 import axios from "axios";
 
 import merge from "lodash/merge";
@@ -17,6 +11,8 @@ import store from "../store";
 import { getSessionVal, setSessionVal } from "@/utils";
 
 import { refreshToken } from "@/api";
+
+// token 自动更新
 
 // 是否正在刷新的标志
 
