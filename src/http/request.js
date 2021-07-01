@@ -3,6 +3,29 @@ import merge from "lodash/merge";
 import qs from "qs";
 // import Element from "element-ui";
 import store from "../store";
+import { getSessionVal, setSessionVal } from "@/utils";
+import { refreshToken } from "@/api";
+
+// token 自动更新
+
+// 是否正在刷新的标志
+window.isRefreshing = false;
+
+// 判断token是否即将过期
+function isTokenExpired() {
+  let curTime = getSessionVal("token").split("_")[1];
+  let expiresTime = new Date().getTime() - curTime;
+  let minutesTime = new Date(expiresTime).getMinutes();
+  if (
+    (expiresTime >= 0 && minutesTime > 10) ||
+    (expiresTime < 0 && Math.abs(expiresTime) <= 1200000)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+// token end
 
 // 环境的切换
 if (process.env.NODE_ENV === "development") {
@@ -12,27 +35,42 @@ if (process.env.NODE_ENV === "development") {
 } else if (process.env.NODE_ENV === "production") {
   axios.defaults.baseURL = "";
 }
-axios.defaults.timeout = 10000;
-axios.defaults.headers.post["Content-Type"] = "multipart/form-data";
+
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded;charset=UTF-8;multipart/form-data";
 
 /**
  * 实例化
- * config是库的默认值，然后是实例的 defaults 属性，最后是请求设置的 config 参数。后者将优先于前者
  */
 const http = axios.create({
-  timeout: 1000 * 30,
-  withCredentials: true // 表示跨域请求时是否需要使用凭证
+  timeout: 1000 * 20,
+  withCredentials: true
 });
 
 /**
  * 请求拦截   621430164879271
  */
 http.interceptors.request.use(
-  function(config) {
-    debugger;
-    config.headers["Authorization"] =
-      "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbk5hbWUiOiJkZW1vMyIsInRlbmFudElkIjoiNDk3NjY5NjQ2MTU3OTI3MzUwOSIsInNvdXJjZSI6IkxPR0lOIiwiZXhwIjoxNjIzMTYxMzIzLCJ1c2VySWQiOiIxNzA0Nzk5ODgwNTcxMTcyNDQ1IiwidXNlcm5hbWUiOiJkZW1vMyJ9.Eq9A3yrPrP_SS_H-4dVsb7TYi7UB2GEcwN35AeqYlQo";
+  config => {
     store.commit("setLoading", true);
+    if (config.url !== "/api/token") {
+      config.headers["Authorization"] =
+        getSessionVal("token") || store.commit("LOGOUT");
+      if (isTokenExpired() && config.url !== "/api/refreshToken") {
+        if (!window.isRefreshing) {
+          window.isRefreshing = true;
+          refreshToken().then(res => {
+            if (res.data.code === 0) {
+              window.isRefreshing = false;
+              setSessionVal("token", res.data.data?.token);
+              // afreshRequest(refreshToken());
+            }
+          });
+        }
+      } else {
+        return config;
+      }
+    }
     return config;
   },
   function(error) {
@@ -81,11 +119,10 @@ http.interceptors.response.use(
       // 处理断网的情况
       if (!window.navigator.onLine) {
         store.commit("setErrMsg", "你的网络已断开，请检查网络");
-        // Element.Message({
-        //   message: "你的网络已断开，请检查网络",
-        //   type: "error"
-        // });
+      }else{
+        store.commit("setErrMsg", "Network Error");
       }
+      store.commit("setLoading", false);
       return Promise.reject(error);
     }
   }
