@@ -154,7 +154,7 @@ http.requstGetApi = (url, params) => {
     http
       .get(http.adornUrl(url), { params: params })
       .then(res => {
-        resolve(res.data);
+        resolve(res.data.data);
       })
       .catch(error => {
         reject(error);
