@@ -1,12 +1,15 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 20:45:04
- * @LastEditTime: 2021-05-10 21:27:34
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-06-19 10:40:02
+ * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\main.js
  */
 import Vue from "vue";
+
+import VueXss from "vue-xss";
+
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -31,6 +34,7 @@ import Watermark from "@/utils/water";
 
 import ZkTable from "vue-table-with-tree-grid";
 Vue.use(ZkTable);
+Vue.use(VueXss);
 
 // import MenuPro from "@/components/designMenu";
 // import "@/components/designMenu/css/menu.scss";

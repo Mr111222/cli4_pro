@@ -1,13 +1,14 @@
 /*
  * @Author: your name
  * @Date: 2020-10-11 20:57:26
- * @LastEditTime: 2021-03-03 21:10:46
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-03 11:20:18
+ * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\store\index.js
  */
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 import login from "./modules/login";
 import language from "./modules/language";
 import getters from "./getters";
@@ -42,7 +43,12 @@ const store = new Vuex.Store({
     login,
     language
   },
-  getters
+  getters,
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage
+    })
+  ]
 });
 
 export default store;

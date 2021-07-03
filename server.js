@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-01-03 11:18:23
- * @LastEditTime: 2021-01-16 19:54:33
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-07-03 11:23:26
+ * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\server.js
  */
@@ -62,6 +62,15 @@ let db = co(conn);
 
 server.context.db = db;
 
+// 延时函数
+async function delayer(time = 2000) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve();
+    }, time);
+  });
+}
+
 // get all
 router.get("/api/list", async ctx => {
   let datas = await ctx.db.query("SELECT * FROM zz_test order by id desc");
@@ -89,10 +98,14 @@ router.post("/api/listPage", async ctx => {
 // 其中page_num是页码，page_szie是每页显示的条数
 
 // select id
-router.get("/api/list/:id", async ctx => {
+router.get("/api/list/:id", async (ctx, next) => {
   let datas = await ctx.db.query(
     `SELECT * FROM zz_test WHERE ID =${ctx.params.id}`
   );
+
+  await delayer(1000); // 延时1s 返回数据 测试 axios timeout
+  await next();
+
   if (datas) {
     ctx.body = { err: 0, message: "success", data: datas };
   } else {

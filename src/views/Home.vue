@@ -100,6 +100,11 @@ export default {
           index: 10,
           title: "Topoloty",
           path: "/topoloty"
+        },
+        {
+          index: 11,
+          title: "Mysql",
+          path: "/mysql"
         }
       ]
     };

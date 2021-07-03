@@ -29,7 +29,6 @@ const http = axios.create({
  */
 http.interceptors.request.use(
   function(config) {
-    debugger;
     config.headers["Authorization"] =
       "eyJhbGciOiJIUzI1NiJ9.eyJsb2dpbk5hbWUiOiJkZW1vMyIsInRlbmFudElkIjoiNDk3NjY5NjQ2MTU3OTI3MzUwOSIsInNvdXJjZSI6IkxPR0lOIiwiZXhwIjoxNjIzMTYxMzIzLCJ1c2VySWQiOiIxNzA0Nzk5ODgwNTcxMTcyNDQ1IiwidXNlcm5hbWUiOiJkZW1vMyJ9.Eq9A3yrPrP_SS_H-4dVsb7TYi7UB2GEcwN35AeqYlQo";
     store.commit("setLoading", true);
@@ -123,7 +122,8 @@ http.adornData = (data = {}, openDefultdata = true, contentType = "json") => {
     t: new Date().getTime()
   };
   data = openDefultdata ? merge(defaults, data) : data;
-  return contentType === "json" ? JSON.stringify(data) : qs.stringify(data);
+  // return contentType === "json" ? JSON.stringify(data) : qs.stringify(data);
+  return contentType === "json" ? data : qs.stringify(data);
 };
 
 /**
@@ -154,7 +154,7 @@ http.requstGetApi = (url, params) => {
     http
       .get(http.adornUrl(url), { params: params })
       .then(res => {
-        resolve(res.data.data);
+        resolve(res.data);
       })
       .catch(error => {
         reject(error);

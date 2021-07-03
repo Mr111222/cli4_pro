@@ -74,6 +74,7 @@
   .left {
     width: 255px;
     background: $bgColor;
+    overflow-y: auto;
   }
   .right {
     flex: 1;

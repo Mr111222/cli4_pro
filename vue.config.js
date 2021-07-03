@@ -14,12 +14,12 @@ module.exports = {
     https: false,
     hotOnly: false, // 热更新
     proxy: {
-      "^/api": {
-        target: "http://wthrcdn.etouch.cn/weather_mini", // 重写路径
+      "/api": {
+        target: "http://localhost:9999", // 重写路径
         ws: true, //开启WebSocket
         secure: false, // 如果是https接口，需要配置这个参数
-        changeOrigin: true,
-        pathRewrite: { "^/api": "" }
+        changeOrigin: true
+        // pathRewrite: { "^/api": "" }
         // this.$http.requstGetApi('/api',{city: '北京'})
       },
       "^/otp": {
@@ -32,27 +32,26 @@ module.exports = {
       }
     }
   },
-  configureWebpack:{
-    module:{
-        rules:[
-          {
-            test:/\.(woff2?|eot|ttf|otf)(\?.*)$/,
-            loader:'url-loader',
-            options:{
-              limit: 10000,
-            }
+  configureWebpack: {
+    module: {
+      rules: [
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)$/,
+          loader: "url-loader",
+          options: {
+            limit: 10000
           }
-          
-          // 多个rules 
+        }
 
-          // {
-          //   test:/\.(woff2?|eot|ttf|otf)(\?.*)$/,
-          //   loader:'url-loader',
-          //   options:{
-          //     limit: 10000,
-          //   }
-          // }
+        // 多个rules
 
+        // {
+        //   test:/\.(woff2?|eot|ttf|otf)(\?.*)$/,
+        //   loader:'url-loader',
+        //   options:{
+        //     limit: 10000,
+        //   }
+        // }
       ]
     },
     resolve: {
@@ -62,9 +61,9 @@ module.exports = {
         "@": resolve("src")
       }
     },
-    // 多个plugin 
-    // plugins:[...morePlugin] 
-    plugins:[new HashedModuleIdsPlugin()] 
+    // 多个plugin
+    // plugins:[...morePlugin]
+    plugins: [new HashedModuleIdsPlugin()]
   },
   chainWebpack: config => {
     config.resolve.alias

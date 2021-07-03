@@ -33,6 +33,15 @@ const routes = [
         }
       },
       {
+        path: "/mysql",
+        name: "Mysql",
+        component: () =>
+          import(/* webpackChunkName: "mysql" */ "../views/mysql.vue"),
+        meta: {
+          title: "Mysql"
+        }
+      },
+      {
         path: "/view",
         name: "View",
         component: () =>
@@ -122,6 +131,14 @@ const routes = [
       import(/* webpackChunkName: "canvas" */ "../views/canvas.vue"),
     meta: {
       title: "canvas"
+    }
+  },
+  {
+    path: "*",
+    component: () =>
+      import(/* webpackChunkName: "canvas" */ "../views/404.vue"),
+    meta: {
+      title: "404"
     }
   },
   // {
