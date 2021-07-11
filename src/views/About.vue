@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-17 21:27:06
- * @LastEditTime: 2021-07-11 11:19:26
+ * @LastEditTime: 2021-07-11 11:31:10
  * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -10,7 +10,18 @@
   <div class="main">
     <div style="width:500px; height:500px; overflow:auto;">
       <el-button @click="getNodeData">getNodeData</el-button>
-      <el-upload class="upload-demo" action="#" :on-change="handleChange">
+      <el-upload
+        class="upload-demo"
+        action="#"
+        :on-change="handleChange"
+        :on-preview="handlePreview"
+        :on-remove="handleRemove"
+        :before-remove="beforeRemove"
+        :on-exceed="handleExceed"
+        :file-list="fileList"
+        :auto-upload="false"
+        multiple
+      >
         <el-button size="small" type="primary">点击上传</el-button>
         <div slot="tip" class="el-upload__tip">
           只能上传jpg/png文件，且不超过500kb
@@ -66,6 +77,7 @@ export default {
         { isHover: false, name: "pps6" },
         { isHover: false, name: "pps7" }
       ],
+      fileList: [],
       fonts: "",
 
       fontList: [
@@ -118,6 +130,22 @@ export default {
       });
     },
 
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 3 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      );
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`);
+    },
     dataToFormData(oData) {
       const oFormData = new FormData();
       for (const [key, val] of Object.entries(oData)) {
