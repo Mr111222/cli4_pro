@@ -1,66 +1,41 @@
 <template>
   <div class="box">
-    <div
-      v-if="roleCode === 'tenant'"
-      style="height:100%;"
-    >
+    <div v-if="roleCode === 'tenant'" style="height:100%;">
       <div class="main_con">
         <div class="nemu">
           <el-menu
             style="height:100vh;float:left;overflow-y:auto;overflow-x:auto"
             class="el-menu-vertical-demo_portal"
             :collapse="isCollapse"
-           
             text-color="#fff"
-            :unique-opened=true
+            :unique-opened="true"
           >
-            <el-menu-item
-              index="1"
-              @click="openMenu"
-            >
-              <i
-                class="el-icon-s-unfold"
-                v-if="isCollapse"
-              ></i>
-              <span
-                slot="title"
-                v-if="!isCollapse"
-              >
-                <img
-                  class="logo"
-                  src="@/assets/img/header-logo.png"
-                  alt=""
-                />
-                <span style="font-size:24px; padding-left:5px;padding-right: 20px; color:#fff;">PMFP</span><i
-                  class="el-icon-close"
-                  @click="openMenu"
-                ></i></span>
+            <el-menu-item index="1" @click="openMenu">
+              <i class="el-icon-s-unfold" v-if="isCollapse"></i>
+              <span slot="title" v-if="!isCollapse">
+                <img class="logo" src="@/assets/img/header-logo.png" alt=""/>
+                <span
+                  style="font-size:24px; padding-left:5px;padding-right: 20px; color:#fff;"
+                  >PMFP</span
+                ><i class="el-icon-close" @click="openMenu"></i
+              ></span>
             </el-menu-item>
             <template>
               <menu-tree :menuData="dataMenu">
                 <div slot="footer">
-                  <div
-                    class="footer_user"
-                    v-if="isCollapse"
-                  >
+                  <div class="footer_user" v-if="isCollapse">
                     <el-menu-item index="5">
                       <i class="el-icon-user"></i>
                       <span slot="title">{{ username }}</span>
                     </el-menu-item>
                   </div>
-                  <div
-                    class="footer_user footer_lang"
-                    v-if="isCollapse"
-                  >
+                  <div class="footer_user footer_lang" v-if="isCollapse">
                     <el-menu-item index="6">
                       <i class="el-icon-eleme"></i>
                       <span slot="title">{{ lang }}</span>
                     </el-menu-item>
                   </div>
-                  <div
-                    class="footer_user footer_basic"
-                    v-if="!isCollapse"
-                  >
+                  <div class="footer_user footer_basic" v-if="!isCollapse">
                     <el-menu-item index="7">
                       <i class="el-icon-user"></i>
                       <el-dropdown
@@ -77,10 +52,7 @@
                           class="user-dropdown"
                           style="border:none;"
                         >
-                          <el-dropdown-item
-                            divided
-                            @click.native="logout"
-                          >
+                          <el-dropdown-item divided @click.native="logout">
                             <span style="display:block;">注销</span>
                           </el-dropdown-item>
                         </el-dropdown-menu>
@@ -89,15 +61,13 @@
                         slot="title"
                         style="margin-left:10px; border-bottom: 1px solid red"
                         @click="changeLan"
-                      >{{ lang }}</span>
+                        >{{ lang }}</span
+                      >
                     </el-menu-item>
                   </div>
-
                 </div>
               </menu-tree>
-
             </template>
-
           </el-menu>
         </div>
         <div class="routers">
@@ -106,10 +76,7 @@
       </div>
     </div>
     <div v-else>
-      <div
-        :style="{ height: winHeight + 'px' }"
-        class="main"
-      >
+      <div :style="{ height: winHeight + 'px' }" class="main">
         <div class="main-header">
           <el-row
             type="flex"
@@ -117,11 +84,10 @@
             align="middle"
             style="height:60px"
           >
-            <el-col
-              :span="4"
-              style="height:30px"
-            >
-              <div style="height:30px;width:100%;display:flex;align-items:center">
+            <el-col :span="4" style="height:30px">
+              <div
+                style="height:30px;width:100%;display:flex;align-items:center"
+              >
                 <img
                   style="height:30px"
                   src="../assets/img/header-logo-black.png"
@@ -131,10 +97,7 @@
                 <b>PMFP Portal</b>
               </div>
             </el-col>
-            <el-col
-              :span="12"
-              style="height:60px"
-            >
+            <el-col :span="12" style="height:60px">
               <div class="header-tab">
                 <el-menu
                   ref="mainMenu"
@@ -151,24 +114,16 @@
                     :key="index"
                     :index="item.name"
                     style="padding:0;height:60px;font-size:20px"
-                  >{{ item.navItem }}</el-menu-item>
+                    >{{ item.navItem }}</el-menu-item
+                  >
                 </el-menu>
               </div>
             </el-col>
-            <el-col
-              :span="5"
-              style="height:60px"
-            >
-              <ul
-                style="float:right"
-                class="logout"
-              >
+            <el-col :span="5" style="height:60px">
+              <ul style="float:right" class="logout">
                 <li>
                   <span style="padding-right: 20px; font-weight:bold;">
-                    <el-link
-                      type="danger"
-                      @click="getLog"
-                    >{{level}}</el-link>
+                    <el-link type="danger" @click="getLog">{{ level }}</el-link>
                   </span>
                   <span>{{ username }} </span> &nbsp;&nbsp;&nbsp;&nbsp;<img
                     style="height:16px;cursor:pointer; vertical-align:top;"
@@ -191,15 +146,11 @@
           width="80%"
           custom-class="logBox"
         >
-          <el-table
-            :data="logData"
-            border
-          >
-            <el-table-column
-              label="更新内容"
-              header-align="center"
-            >
-              <template slot-scope="scope"><span v-html="escapeStringHTML(scope.row.describe)"></span></template>
+          <el-table :data="logData" border>
+            <el-table-column label="更新内容" header-align="center">
+              <template slot-scope="scope"
+                ><span v-html="escapeStringHTML(scope.row.describe)"></span
+              ></template>
             </el-table-column>
           </el-table>
         </el-dialog>
@@ -209,237 +160,235 @@
 </template>
 
 <script>
-import MenuTree from '@/components/menu'
-import {
-  removeSession
-} from '@/utils/base'
-import {
-  mapGetters,
-  mapState
-} from 'vuex';
+import MenuTree from "@/components/menu";
+import { removeSession } from "@/utils/base";
+import { mapGetters, mapState } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       // isCollapse: true,
       lang: "English",
       isLang: "en",
-      dataMenu: [{
-        id: 'Service',
-        name: 'Service Store',
-        icon: 'el-icon-s-home',
-        children: []
-      },
-      {
-        id: 'Guideline',
-        name: 'Technical Guideline',
-        icon: 'el-icon-s-data',
-        children: []
-      },
-      {
-        id: 'Assets',
-        name: 'Architectural Assets',
-        icon: 'el-icon-s-shop',
-        children: []
-      }
+      dataMenu: [
+        {
+          id: "Service",
+          name: "Service Store",
+          icon: "el-icon-s-home",
+          children: []
+        },
+        {
+          id: "Guideline",
+          name: "Technical Guideline",
+          icon: "el-icon-s-data",
+          children: []
+        },
+        {
+          id: "Assets",
+          name: "Architectural Assets",
+          icon: "el-icon-s-shop",
+          children: []
+        }
       ],
-      username: '',
-      userCode: '',
+      username: "",
+      userCode: "",
       menuList: [],
       winHeight: document.documentElement.clientHeight,
-      roleCode: '',
+      roleCode: "",
       logMsg: false,
       logData: [],
-      activeNames: ['1'],
+      activeNames: ["1"]
     };
   },
   components: {
     MenuTree
   },
   computed: {
-    isCollapse () {
-      return this.$store.getters.isHSowMune
+    isCollapse() {
+      return this.$store.getters.isHSowMune;
     },
-    ...mapState(['winList']),
-    ...mapGetters(['level', 'getNewLevel'])
+    ...mapState(["winList"]),
+    ...mapGetters(["level", "getNewLevel"])
   },
   watch: {
     roleCode: {
-      handler: 'routeindex',
-      immediate: true,
+      handler: "routeindex",
+      immediate: true
     },
-    getNewLevel (oldval, newVal) {
+    getNewLevel(oldval, newVal) {
       if (newVal > 0) {
-        this.getLogData()
+        this.getLogData();
       }
-    },
+    }
   },
-  created () {
+  created() {
     this.$http({
-      url: 'portal/user/info',
-      method: 'get',
-    }).then((res) => {
-      if (res.data.code == '000000') {
+      url: "portal/user/info",
+      method: "get"
+    }).then(res => {
+      if (res.data.code == "000000") {
         this.username = res.data.data.userName;
         this.roleCode = res.data.data.roles[0].roleCode;
-        this.$store.commit('setRoleCode', res.data.data.roles[0].roleCode)
+        this.$store.commit("setRoleCode", res.data.data.roles[0].roleCode);
       }
     });
   },
-  mounted () {
-    this.getMenuService()
-    this.getAssets()
-    this.getGuideline()
+  mounted() {
+    this.getMenuService();
+    this.getAssets();
+    this.getGuideline();
     this.winHeight = document.documentElement.clientHeight;
     window.onresize = () => {
       this.winHeight = document.documentElement.clientHeight;
     };
-    this.getLogData()
+    this.getLogData();
   },
   methods: {
-    escapeStringHTML (str) {
-      str = str.replace(/&lt;/g, '<');
-      str = str.replace(/&gt;/g, '>');
+    escapeStringHTML(str) {
+      str = str.replace(/&lt;/g, "<");
+      str = str.replace(/&gt;/g, ">");
       return str;
     },
-    routeSelect () { },
-    getLog () {
-      this.logMsg = true
-      this.getLogData()
+    routeSelect() {},
+    getLog() {
+      this.logMsg = true;
+      this.getLogData();
     },
-    async getLogData () {
-      let datas = await this.$http.get(`portal/releaseNote/query`)
+    async getLogData() {
+      let datas = await this.$http.get(`portal/releaseNote/query`);
       if (datas.data.code === "000000") {
         if (datas.data.data.length > 0) {
-          let nowObj = datas.data.data.splice(0, 1)
-          this.logData = nowObj
-          this.$store.commit('setLevel', nowObj[0].version)
+          let nowObj = datas.data.data.splice(0, 1);
+          this.logData = nowObj;
+          this.$store.commit("setLevel", nowObj[0].version);
         } else {
-          this.logData = []
-          this.$store.commit('setLevel', '')
+          this.logData = [];
+          this.$store.commit("setLevel", "");
         }
       } else {
         this.$message({
-          type: 'error',
+          type: "error",
           message: datas.message
-        })
+        });
       }
     },
-    dropChange (backData) {
+    dropChange(backData) {
       this.username = backData;
     },
-    logout () {
+    logout() {
       // 关闭子工程
       for (let i = 0; i < this.winList.length; i++) {
         this.winList[i].close();
       }
-      this.$store.commit('clearWinList');
+      this.$store.commit("clearWinList");
       localStorage.clear();
-      removeSession('breadList')
+      removeSession("breadList");
       this.clearAllCookie();
-      this.$router.replace('/login');
+      this.$router.replace("/login");
     },
     // clear all cookie
-    clearAllCookie () {
+    clearAllCookie() {
       let date = new Date();
       date.setTime(date.getTime() - 10000);
       // eslintno-useless-escape
       let keys = document.cookie.match(/[^ =;]+(?=\=)/g); // eslint-disable-line
       if (keys) {
-        for (let i = keys.length; i--;)
+        for (let i = keys.length; i--; )
           document.cookie =
-            keys[i] + '=0; expire=' + date.toGMTString() + '; path=/';
+            keys[i] + "=0; expire=" + date.toGMTString() + "; path=/";
       }
     },
-    routeindex () {
+    routeindex() {
       this.menuList = [];
-      if (this.roleCode == 'portal-admin') {
-        this.menuList = [{
-          name: '/sharedServiceAdmin',
-          navItem: 'Service Store'
-        },
-        {
-          name: '/architecturalAssets',
-          navItem: 'Architectural Assets'
-        },
-        {
-          name: '/technicalSpecifications',
-          navItem: 'Technical Guideline',
-        },
-        {
-          name: '/projectmanage',
-          navItem: 'Project Management'
-        },
+      if (this.roleCode == "portal-admin") {
+        this.menuList = [
+          {
+            name: "/sharedServiceAdmin",
+            navItem: "Service Store"
+          },
+          {
+            name: "/architecturalAssets",
+            navItem: "Architectural Assets"
+          },
+          {
+            name: "/technicalSpecifications",
+            navItem: "Technical Guideline"
+          },
+          {
+            name: "/projectmanage",
+            navItem: "Project Management"
+          }
         ];
-      } else if (this.roleCode == 'tenant') {
-        this.menuList = [{
-          name: '/sharedService',
-          navItem: 'Service Store'
-        },
-        {
-          name: '/architecturalAssets',
-          navItem: 'Architectural Assets'
-        },
-        {
-          name: '/technicalSpecifications',
-          navItem: 'Technical Guideline',
-        },
+      } else if (this.roleCode == "tenant") {
+        this.menuList = [
+          {
+            name: "/sharedService",
+            navItem: "Service Store"
+          },
+          {
+            name: "/architecturalAssets",
+            navItem: "Architectural Assets"
+          },
+          {
+            name: "/technicalSpecifications",
+            navItem: "Technical Guideline"
+          }
         ];
       }
-      this.roleCode == 'portal-admin' ?
-        this.$router.push('/sharedServiceAdmin') :
-        this.roleCode == 'tenant' ?
-          this.$router.push('/sharedService') :
-          '';
+      this.roleCode == "portal-admin"
+        ? this.$router.push("/sharedServiceAdmin")
+        : this.roleCode == "tenant"
+        ? this.$router.push("/sharedService")
+        : "";
     },
-    changeLan () {
+    changeLan() {
       this.isLang = this.isLang === "en" ? "zn" : "en";
       this.lang = this.isLang === "en" ? "简体中文" : "English";
     },
-    openMenu () {
+    openMenu() {
       // this.$router.push('/sharedService')
-      this.$store.commit('setNav', !this.isCollapse)
+      this.$store.commit("setNav", !this.isCollapse);
     },
-    leveMenu () {
-      this.$store.commit('setNav', !this.isCollapse)
+    leveMenu() {
+      this.$store.commit("setNav", !this.isCollapse);
     },
-    getMenuService () {
-      let children = []
+    getMenuService() {
+      let children = [];
       this.$http.get(`portal/shared-service/query`).then(res => {
         if (res.data.code == "000000") {
           res.data.data.forEach(element => {
             if (element.online === 1) {
-              element.isActive = false
+              element.isActive = false;
               children.push(element);
             }
           });
-          this.dataMenu[0].children = this.setChildKey(children, 'serve')
-        }
-      })
-    },
-    getAssets () {
-      this.$http.get(`portal/assets/tree`).then(res => {
-        if (res.data.code == "000000") {
-          this.dataMenu[2].children = this.setChildKey(res.data.data, 'Assets')
+          this.dataMenu[0].children = this.setChildKey(children, "serve");
         }
       });
     },
-    getGuideline () {
+    getAssets() {
+      this.$http.get(`portal/assets/tree`).then(res => {
+        if (res.data.code == "000000") {
+          this.dataMenu[2].children = this.setChildKey(res.data.data, "Assets");
+        }
+      });
+    },
+    getGuideline() {
       this.$http.get(`portal/guideline/tree`).then(res => {
         if (res.data.code == "000000") {
-          this.dataMenu[1].children = this.setChildKey(res.data.data, 'Guide')
+          this.dataMenu[1].children = this.setChildKey(res.data.data, "Guide");
           // console.log(this.setChildKey(res.data.data, 'pps'))
         }
       });
     },
-    setChildKey (data, api) {
+    setChildKey(data, api) {
       data.forEach(res => {
         if (res.children && res.children.length > 0) {
-          this.setChildKey(res.children, api)
+          this.setChildKey(res.children, api);
         } else {
-          res.apiName = api
+          res.apiName = api;
         }
-      })
-      return data
+      });
+      return data;
     }
   }
 };
@@ -459,20 +408,20 @@ export default {
   float: left;
   height: 100%;
   position: relative;
-  background: linear-gradient(352.67deg, #000428 0%, #004E92 115.68%);
+  background: linear-gradient(352.67deg, #000428 0%, #004e92 115.68%);
   .el-menu {
     background: none;
   }
   .el-menu-vertical-demo_portal {
     height: 100%;
     color: #fff !important;
-    .el-submenu__title:hover{
-      background:none !important;
-      color: #1366D7 !important;
+    .el-submenu__title:hover {
+      background: none !important;
+      color: #1366d7 !important;
     }
-    .el-menu-item:hover{
-      background:none !important;
-      color: #1366D7 !important;
+    .el-menu-item:hover {
+      background: none !important;
+      color: #1366d7 !important;
     }
 
     .logo {
@@ -496,16 +445,20 @@ export default {
 }
 
 .el-menu--vertical {
-  background: linear-gradient(352.67deg, #000428 0%, #004E92 115.68%) !important;
+  background: linear-gradient(
+    352.67deg,
+    #000428 0%,
+    #004e92 115.68%
+  ) !important;
   .el-menu {
     background: none;
-    .el-submenu__title:hover{
-      background:none !important;
-      color: #1366D7 !important;
+    .el-submenu__title:hover {
+      background: none !important;
+      color: #1366d7 !important;
     }
-    .el-menu-item:hover{
-      background:none !important;
-      color: #1366D7 !important;
+    .el-menu-item:hover {
+      background: none !important;
+      color: #1366d7 !important;
     }
   }
 }
@@ -524,7 +477,6 @@ export default {
 .el-icon-close {
   padding-left: 10px;
 }
-
 
 // admin-portal css
 .main {

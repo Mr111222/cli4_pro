@@ -15,7 +15,7 @@ module.exports = {
     hotOnly: false, // 热更新
     proxy: {
       "/api": {
-        target: "http://localhost:9999", // 重写路径
+        target: "http://localhost:3000", // 重写路径
         ws: true, //开启WebSocket
         secure: false, // 如果是https接口，需要配置这个参数
         changeOrigin: true
@@ -72,12 +72,12 @@ module.exports = {
       .set("@css", resolve("src/assets/css"));
     if (isProduction) {
       // 图片压缩
-      // config.module
-      //   .rule("images")
-      //   .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
-      //   .use("image-webpack-loader")
-      //   .loader("image-webpack-loader")
-      //   .options({ bypassOnDebug: true });
+      config.module
+        .rule("images")
+        .test(/\.(png|jpe?g|gif|svg)(\?.*)?$/)
+        .use("image-webpack-loader")
+        .loader("image-webpack-loader")
+        .options({ bypassOnDebug: true });
       // 删除预加载
       config.plugins.delete("preload");
       config.plugins.delete("prefetch");

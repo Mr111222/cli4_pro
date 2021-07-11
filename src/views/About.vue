@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-03-17 21:27:06
- * @LastEditTime: 2021-06-07 22:30:43
+ * @LastEditTime: 2021-07-11 11:19:26
  * @LastEditors: zz
  * @Description: In User Settings Edit
  * @FilePath: \cli4_pro\src\views\About.vue
@@ -135,9 +135,9 @@ export default {
       // this.fileList = fileList.slice(-3);
     },
     async getNodeData() {
-      let datas = await this.$http.requstGetApi("/v2");
-      console.log(datas, 999);
+      await this.$http.requstGetApi("/api/getData");
     },
+
     setHover(item) {
       item.isHover = true;
     },

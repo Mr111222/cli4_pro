@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import persistedState from "vuex-persistedstate";
 import login from "./modules/login";
-import htmls from '@/data/content'
+import htmls from "@/data/content";
 // zhi.zhou.ba@partner.bmw-brilliance.cn
 
 Vue.use(Vuex);
@@ -31,7 +32,8 @@ const store = new Vuex.Store({
   actions: {},
   modules: {
     login
-  }
+  },
+  plugins: [persistedState({ storage: window.sessionStorage })]
 });
 
 export default store;
